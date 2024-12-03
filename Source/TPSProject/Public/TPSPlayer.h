@@ -80,4 +80,23 @@ public:
 	//총알 발사 처리 함수
 	void InputFire(const struct FInputActionValue& inputValue);
 
+	//스나이퍼건 스태틱 메시 추가
+	UPROPERTY(VisibleAnywhere, Category = GunMesh)
+		class UStaticMeshComponent* sniperGunComp;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+		class UInputAction* ia_GrenadeGun;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+		class UInputAction* ia_SniperGun;
+	
+	//유탄총 사용중인지 여부
+	bool bUsingGrenadeGun = true;
+	
+	//유탄총으로 변경
+	void ChangeToGrenadeGun(const struct FInputActionValue& inputValue);
+	
+	//스나이퍼건으로 변경
+	void ChangeToSniperGun(const struct FInputActionValue& inputValue);
+
 };
