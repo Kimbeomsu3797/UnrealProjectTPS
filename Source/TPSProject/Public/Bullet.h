@@ -30,4 +30,6 @@ public:
 		class USphereComponent* collisionComp;
 	UPROPERTY(VisibleAnywhere, Category=BodyMesh)
 		class UStaticMeshComponent* bodyComp;
+	//총알 제거 함수
+	//void Die();
 };

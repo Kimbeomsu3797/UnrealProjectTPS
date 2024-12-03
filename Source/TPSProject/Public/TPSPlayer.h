@@ -71,4 +71,13 @@ public:
 	//ÃÑ ½ºÄÌ·¹Å»¸Þ½Ã Å¬·¡½º
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
 		class USkeletalMeshComponent* gunMeshComp;
+	//ÃÑ¾Ë °øÀå
+	UPROPERTY(EditDefaultsOnly, Category = BulletFactory)
+		TSubclassOf<class ABullet> bulletFactory;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+		class UInputAction* ia_Fire;
+	//ÃÑ¾Ë ¹ß»ç Ã³¸® ÇÔ¼ö
+	void InputFire(const struct FInputActionValue& inputValue);
+
 };

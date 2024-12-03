@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
+#include "Bullet.h"
 
 // Sets default values
 ATPSPlayer::ATPSPlayer()
@@ -112,9 +113,18 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		//점프는 바인드 시킬때 트루 펄스 이기때문에 Started로 해준다.
 		PlayerInput->BindAction(ia_Jump, ETriggerEvent::Started, this, &ATPSPlayer::InputJump);
 		//PlayerInput->BindAction(ia_Fire, ETriggerEvent::Started, this, &ATPSPlayer::Fire);
+		PlayerInput->BindAction(ia_Fire, ETriggerEvent::Started, this, &ATPSPlayer::InputFire);
 	}
+
+
 }
 
+void ATPSPlayer::InputFire(const struct FInputActionValue& inputValue)
+{
+	//총알 발사 처리
+	FTransform firePosition = gunMeshComp->GetSocketTransform(TEXT("FirePosition"));
+	GetWorld()->SpawnActor<ABullet>(bulletFactory, firePosition);
+}
 void ATPSPlayer::Turn(const FInputActionValue& inputValue)
 {
 	float value = inputValue.Get<float>();
