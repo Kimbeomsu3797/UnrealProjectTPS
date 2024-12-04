@@ -12,36 +12,36 @@ ABullet::ABullet()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//1. Ãæµ¹Ã¼ µî·Ï
+	//1. ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½
 	collisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("CollComp"));
-	//2. Ãæµ¹ÇÁ·ÎÆÄÀÏ ¼³Á¤
+	//2. ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	collisionComp->SetCollisionProfileName(TEXT("BlockAll"));
-	//3. Ãæµ¹Ã¼ Å©±â ¼³Á¤
+	//3. ï¿½æµ¹Ã¼ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	collisionComp->SetSphereRadius(13);
-	//4. ·çÆ®·Î µî·Ï
+	//4. ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 	RootComponent = collisionComp;
-	//5. ¿Ü°ü ÄÄÆ÷³ÍÆ® µî·Ï
+	//5. ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	bodyComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyMeshComp"));
-	//6. ºÎ¸ð ÄÄÆ÷³ÍÆ® ÁöÁ¤
+	//6. ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	bodyComp->SetupAttachment(collisionComp);
-	//7. Ãæµ¹ ºñÈ°¼ºÈ­
+	//7. ï¿½æµ¹ ï¿½ï¿½È°ï¿½ï¿½È­
 	bodyComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	//8. ¿Ü°£ Å©±â ¼³Á¤
+	//8. ï¿½Ü°ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bodyComp->SetRelativeScale3D(FVector(0.25f));
-	//¹ß»çÃ¼ ÄÄÆ÷³ÍÆ®
+	//ï¿½ß»ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	movementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
-	//movemonet ÄÄÆ÷³ÍÆ®°¡ °»½Å½ÃÅ³ ÄÄÆ÷³ÍÆ® ÁöÁ¤
+	//movemonet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Å½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	movementComp->SetUpdatedComponent(collisionComp);
-	//ÃÊ±â¼Óµµ
+	//ï¿½Ê±ï¿½Óµï¿½
 	movementComp->InitialSpeed = 5000;
-	//ÃÖ´ë¼Óµµ
+	//ï¿½Ö´ï¿½Óµï¿½
 	movementComp->MaxSpeed = 5000;
-	//¹Ýµ¿ ¿©ºÎ
+	//ï¿½Ýµï¿½ ï¿½ï¿½ï¿½ï¿½
 	movementComp->bShouldBounce = true;
-	//¹Ýµ¿ °ª
+	//ï¿½Ýµï¿½ ï¿½ï¿½
 	movementComp->Bounciness = 0.3f;
 
-	//»ý¸í ½Ã°£ ÁÖ±â
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ö±ï¿½
 	//InitialLifeSpan = 2.0f;
 }
 //void ABullet::Die()

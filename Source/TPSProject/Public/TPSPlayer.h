@@ -112,4 +112,15 @@ public:
 	//스나이퍼 UI 위젯 인스턴스
 	UPROPERTY()
 		class UUserWidget* _sniperUI;
+
+	//총알 파편 효과 공장
+	UPROPERTY(EditAnywhere, Category = BulletEffect)
+		class UParticleSystem* bulletEffectFactory;
+
+	//일반 조준 크로스헤어UI 위젯
+	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
+		TSubclassOf<class UUserWidget> crosshairUIFactory;
+	//크로스헤어 인스턴스
+	UPROPERTY()
+		class UUserWidget* _crosshairUI;
 };
