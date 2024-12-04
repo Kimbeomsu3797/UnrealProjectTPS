@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "InputActionValue.h"
 #include "Bullet.h"
+#include <Blueprint/UserWidget.h>
 
 // Sets default values
 ATPSPlayer::ATPSPlayer()
@@ -96,7 +97,13 @@ void ATPSPlayer::BeginPlay()
 			subsystem->AddMappingContext(imc_TPS, 0);
 		}
 	}
+	
+	//1. 스나이퍼 UI 위젯 인스턴스 생성
+	_sniperUI = CreateWidget(GetWorld(), sniperUIFactory);
+
 	ChangeToSniperGun(FInputActionValue());
+
+	
 }
 
 // Called every frame
@@ -143,10 +150,39 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		//총 교체 이벤트 처리 함수 바인딩
 		PlayerInput->BindAction(ia_GrenadeGun, ETriggerEvent::Started, this, &ATPSPlayer::ChangeToGrenadeGun);
 		PlayerInput->BindAction(ia_SniperGun, ETriggerEvent::Started, this, &ATPSPlayer::ChangeToSniperGun);
+		
+		//스나이퍼 조준 모드 이벤트 처리 함수 바인딩
+		PlayerInput->BindAction(ia_Sniper, ETriggerEvent::Started, this, &ATPSPlayer::SnimperAim);
+		PlayerInput->BindAction(ia_Sniper, ETriggerEvent::Completed, this, &ATPSPlayer::SnimperAim);
 	}
 
 
 }
+
+void ATPSPlayer::SnimperAim(const struct FInputActionValue& inputValue)
+{
+	//Pressed 입력 처리
+	if (bSniperAim == false)
+	{
+		//1.스나이퍼 조준 모드 활성화
+		bSniperAim = true;
+		//2. 스나이퍼 조준 UI 등록
+		_sniperUI->AddToViewport();
+		//3. 카메라의 시야각 Field Of View 설정
+		tpsCamComp->SetFieldOfView(45.0f);
+	}
+	//Released 입력 처리
+	else
+	{
+		//1.스나이퍼 조준 모드 비활성화
+		bSniperAim = false;
+		//2.스나이퍼 조준 UI 화면에서 제거
+		_sniperUI->RemoveFromParent();
+		//3. 카메라 시야각 원래대로 되돌리기 // 이건 원본값을 기억해뒀다가 입력만 하도록 해도될듯?
+		tpsCamComp->SetFieldOfView(90.0f);
+	}
+}
+
 void ATPSPlayer::ChangeToGrenadeGun(const struct FInputActionValue& inputValue)
 {
 	//유탄총으로 변경

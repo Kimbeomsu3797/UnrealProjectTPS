@@ -66,7 +66,7 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 		class USpringArmComponent* springArmComp;
-	UPROPERTY(VisibleAnywhere, Category = Camera)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly ,Category = Camera)
 		class UCameraComponent* tpsCamComp;
 	//총 스켈레탈메시 클래스
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
@@ -99,4 +99,17 @@ public:
 	//스나이퍼건으로 변경
 	void ChangeToSniperGun(const struct FInputActionValue& inputValue);
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+		class UInputAction* ia_Sniper;
+	//스나이퍼 조준 처리 함수
+	void SnimperAim(const struct FInputActionValue& inputValue);
+	//스나이퍼 조준 중인지 여부
+	bool bSniperAim = false;
+
+	//스나이퍼 UI 위젯 공장
+	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
+		TSubclassOf<class UUserWidget> sniperUIFactory;
+	//스나이퍼 UI 위젯 인스턴스
+	UPROPERTY()
+		class UUserWidget* _sniperUI;
 };
