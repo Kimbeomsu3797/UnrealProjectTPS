@@ -21,7 +21,7 @@ ATPSPlayer::ATPSPlayer()
 
 	//1.���̷�Ż�޽� �����͸� �ҷ�����ʹ�.
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> TempMesh
-	(TEXT("SkeletalMesh'/Game/Mannequin/Character/Mesh/SK_Mannequin.SK_Mannequin'"));
+	(TEXT("SkeletalMesh'/Game/AnimStarterPack/UE4_Mannequin/Mesh/SK_Mannequin.SK_Mannequin'"));
 	if (TempMesh.Succeeded())
 	{
 		GetMesh()->SetSkeletalMesh(TempMesh.Object);
