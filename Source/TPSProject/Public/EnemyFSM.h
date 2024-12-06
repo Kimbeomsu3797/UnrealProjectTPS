@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "EnemyFSM.generated.h"
 
-//»ç¿ëÇÒ »óÅÂ Á¤ÀÇ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 UENUM(BlueprintType)
 enum class EEnemyState : uint8
 {
@@ -26,55 +26,55 @@ public:
 	// Sets default values for this component's properties
 	UEnemyFSM();
 	
-	//±âº»¼Ó¼ºÀ¸·Î »óÅÂ¸¦ idle·Î ¼³Á¤ÇØµÐ´Ù.
+	//ï¿½âº»ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ idleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÐ´ï¿½.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = FSM)
 		EEnemyState mState = EEnemyState::Idle;
-	//´ë±â»óÅÂ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void IdleState();
-	//ÀÌµ¿»óÅÂ
+	//ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½
 	void MoveState();
-	//°ø°Ý»óÅÂ
+	//ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
 	void AttackState();
-	//ÇÇ°Ý»óÅÂ
+	//ï¿½Ç°Ý»ï¿½ï¿½ï¿½
 	void DamageState();
-	//Á×À½»óÅÂ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void DieState();
 
-	//´ë±â »óÅÂ
+	//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = FSM)
-	//´ë±â ½Ã°£
+	//ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	float idleDelayTime = 2;
-	//°æ°ú ½Ã°£
+	//ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	float currentTime = 0;
 
-	//Å¸±ê
+	//Å¸ï¿½ï¿½
 	UPROPERTY(VisibleAnywhere, Category = FSM)
 		class ATPSPlayer* target;
 
-	//¼ÒÀ¯ ¾×ÅÍ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY()
 		class AEnemy* me;
 
-	//°ø°Ý °¡´É ¹üÀ§
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditAnywhere, Category = FSM)
 		float attackRange = 150.0f;
 
-	//°ø°Ý ´ë±â ½Ã°£
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 	UPROPERTY(EditAnywhere, Category = FSM)
 		float attackDelayTime = 2.0f;
 
-	//Ã¼·Â
+	//Ã¼ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = FSM)
 		int32 hp = 3;
 
-	//ÇÇ°Ý ´ë±â ½Ã°£ ¼±¾ð
+	//ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditAnywhere, Category = FSM)
 		float damageDelayTime = 2.0f;
 
-	//¾Æ·¡·Î »ç¶óÁö´Â ¼Óµµ¸¦ ¼³Á¤
+	//ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditAnywhere, Category = FSM)
 		float dieSpeed = 50.0f;
-	//ÇÇ°Ý ¾Ë¸² ÀÌº¥Æ® ÇÔ¼ö ¼±¾ð
+	//ï¿½Ç°ï¿½ ï¿½Ë¸ï¿½ ï¿½Ìºï¿½Æ® ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	void OnDamageProcess();
 
 protected:
@@ -85,5 +85,6 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	UPROPERTY()
+	class UEnemyAnim* anim;
 };
