@@ -6,15 +6,14 @@
 #include "Enemy.h"
 #include <Kismet/GameplayStatics.h>
 #include "TPSProject.h"
-#include <Components//CapsuleComponent.h>
+#include <Components/CapsuleComponent.h>
+
 // Sets default values for this component's properties
 UEnemyFSM::UEnemyFSM()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
 
@@ -23,25 +22,18 @@ void UEnemyFSM::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	//ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ATPSPlayer Å¸ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ï¿½ï¿½
+	//¿ùµå¿¡¼­ ATPSPlayer Å¸±ê Ã£¾Æ¿À±â
 	auto actor = UGameplayStatics::GetActorOfClass(GetWorld(), ATPSPlayer::StaticClass());
-	//ATPSPlayerÅ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½
+	//ATPSPlayer Å¸ÀÔÀ¸·Î Ä³½ºÆÃ
 	target = Cast<ATPSPlayer>(actor);
-	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//¼ÒÀ¯ °´Ã¼ °¡Á®¿À±â
 	me = Cast<AEnemy>(GetOwner());
 }
-
 
 // Called every frame
 void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	//ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
-	FString logMsg = UEnum::GetValueAsString(mState);
-	GEngine->AddOnScreenDebugMessage(0, 1, FColor::Cyan, logMsg);
-
 	switch (mState)
 	{
 	case EEnemyState::Idle:
@@ -54,7 +46,7 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 		AttackState();
 		break;
 	case EEnemyState::Damage:
-		DamagedState();
+		DamageState();
 		break;
 	case EEnemyState::Die:
 		DieState();
@@ -62,121 +54,115 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	default:
 		break;
 	}
-	// ...
+
+	FString logMsg = UEnum::GetValueAsString(mState);
+	GEngine->AddOnScreenDebugMessage(0, 1, FColor::Cyan, logMsg);
 }
 
-//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-void UEnemyFSM::IdleState() 
+//¾ÆÀÌµé
+void UEnemyFSM::IdleState()
 {
-	//1. ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ê·¶ï¿½ï¿½ï¿½Ï±ï¿½
+	//1. ½Ã°£ÀÌ Èê·¶À¸´Ï±î
 	currentTime += GetWorld()->DeltaTimeSeconds;
-	//2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ß´Ù¸ï¿½
+	//2. ¸¸¾à °æ°ú ½Ã°£ÀÌ ´ë±â ±â»êÀ» ÃÊ°úÇß´Ù¸é
 	if (currentTime > idleDelayTime)
 	{
-		//3. ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
+		//3. ÀÌµ¿ »óÅÂ·Î ÀüÈ¯
 		mState = EEnemyState::Move;
-		//ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
+		//°æ°ú ½Ã°£ ÃÊ±âÈ­
 		currentTime = 0;
 	}
 }
 
-//ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
-void UEnemyFSM::MoveState() 
+//ÀÌµ¿
+void UEnemyFSM::MoveState()
 {
-	//1. Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï´ï¿½.
+	//1. Å¸±ê ¸ñÀûÁö¸¦ ÇÒ´ç
 	FVector destination = target->GetActorLocation();
-	//2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï´ï¿½
+	//2. ¹æÇâÀÌ ÇÊ¿ä
 	FVector dir = destination - me->GetActorLocation();
-	//3. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
+	//3. ±¸ÇÑ ¹æÇâÀ¸·Î ÀÌµ¿ÇÏ°í ½Í´Ù.
 	me->AddMovementInput(dir.GetSafeNormal());
-
-	//Å¸ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
-	//1.ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Å¸±ê°ú °¡±î¿öÁö¸é °ø°İ »óÅÂ·Î º¯°æ
 	if (dir.Size() < attackRange)
 	{
-		//2.ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
 		mState = EEnemyState::Attack;
 	}
 }
 
-//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-void UEnemyFSM::AttackState() 
+//°ø°İ
+void UEnemyFSM::AttackState()
 {
-	//ï¿½ï¿½Ç¥: ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
-	//1. ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ê·¯ï¿½ï¿½ ï¿½Ñ´ï¿½.
+	//¸ñÇ¥: ÀÏÁ¤ ½Ã°£¿¡ ÇÑ ¹ø¾¿ °ø°İÇÏ°Ô ÇÑ´Ù.
+	//1. ½Ã°£ÀÌ Èê·¯¾ß ÇÑ´Ù.
 	currentTime += GetWorld()->DeltaTimeSeconds;
-	//2. ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+	//2. °ø°İ ½Ã°£ÀÌ µÆÀ¸´Ï±î
 	if (currentTime > attackDelayTime)
 	{
-		//3. ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Í´ï¿½.
-		PRINT_LOG(TEXT("Attack!!!!!"));
-		//ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ê±ï¿½È­
+		//3. °ø°İÇÏ°í ½Í´Ù.
+		PRINT_LOG(TEXT("Attack!!"));
+		//°æ°ú ½Ã°£ ÃÊ±âÈ­
 		currentTime = 0;
 	}
-	
-	//ëª©í‘œ: íƒ€ê¹ƒì´ ê³µê²© ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ë©´ ìƒíƒœë¥¼ ì´ë™ìœ¼ë¡œ ì „í™˜í•˜ê³  ì‹¶ë‹¤.
-	//1. íƒ€ê¹ƒê³¼ì˜ ê±°ë¦¬ê°€ í•„ìš”í•˜ë‹¤.
+
+	//1. Å¸±ê°úÀÇ °Å¸®°¡ ÇÊ¿ä
 	float distance = FVector::Distance(target->GetActorLocation(), me->GetActorLocation());
-	//2. íƒ€ê¹ƒê³¼ì˜ ê±°ë¦¬ê°€ ê³µê²© ë²”ìœ„ë¥¼ ë²—ì–´ë‚¬ìœ¼ë‹ˆê¹Œ
+	//2. Å¸±ê°úÀÇ °Å¸®°¡ °ø°İ ¹üÀ§¸¦ ¹ş¾î³µÀ¸´Ï±î
 	if (distance > attackRange)
 	{
-		//3. ìƒíƒœë¥¼ ì´ë™ìœ¼ë¡œ ì „í™˜í•˜ê³  ì‹¶ë‹¤.
+		//3. »óÅÂ¸¦ ÀÌµ¿À¸·Î ÀüÈ¯
 		mState = EEnemyState::Move;
+	}
+
+}
+
+//ÇÇ°İ
+void UEnemyFSM::DamageState()
+{
+	//1. ½Ã°£ÀÌ Èê·¶À¸´Ï±î
+	currentTime += GetWorld()->DeltaTimeSeconds;
+	//2. °æ°ú ½Ã°£ÀÌ ´ë±â ½Ã°£À» ÃÊ°ú Çß´Ù¸é
+	if (currentTime > damageDelayTime)
+	{
+		//3. »óÅÂ¸¦ ¾ÆÀÌµé·Î º¯°æ
+		mState = EEnemyState::Idle;
+		//°æ°ú ½Ã°£ ÃÊ±âÈ­
+		currentTime = 0;
 	}
 }
 
 void UEnemyFSM::OnDamageProcess()
 {
-
-	//ì²´ë ¥ ê°ì†Œ
+	//Ã¼·Â °¨¼Ò
 	hp--;
-	//ë§Œì•½ ì²´ë ¥ì´ ë‚¨ì•„ìˆë‹¤ë©´
-	if (hp>0)
+	//Ã¼·ÂÀÌ ³²¾ÆÀÖ´Ù¸é
+	if (hp > 0)
 	{
-		//ìƒíƒœë¥¼ í”¼ê²©ìœ¼ë¡œ ì „í™˜
+		//ÇÇ°İ»óÅÂ·Î ÀüÈ¯
 		mState = EEnemyState::Damage;
 	}
-	//ê·¸ë ‡ì§€ ì•Šë‹¤ë©´
+	//Ã¼·ÂÀÌ ¾ø´Ù¸é
 	else
 	{
-		//ìƒíƒœë¥¼ ì£½ìŒìœ¼ë¡œ ì „í™˜
+		//Á×Àº »óÅÂ·Î º¯°æ
 		mState = EEnemyState::Die;
-		//ìº¡ìŠ ì¶©ëŒì²´ ë¹„í™œì„±í™”
+		//Ä¸½¶ Ãæµ¹Ã¼ ºñÈ°¼ºÈ­
 		me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
-	
-	
 }
 
-//ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½
-void UEnemyFSM::DamagedState()
-{
-	//1. ì‹œê°„ì´ í˜ë €ìœ¼ë‹ˆê¹Œ
-	currentTime += GetWorld()->DeltaTimeSeconds;
-	//2. ë§Œì•½ ê²½ê³¼ ì‹œê°„ì´ ëŒ€ê¸° ì‹œê°„ì„ ì´ˆê³¼í–ˆë‹¤ë©´
-	if (currentTime > damageDelayTime)
-	{
-		//3. ëŒ€ê¸° ìƒíƒœë¡œ ì „í™˜í•˜ê³  ì‹¶ë‹¤.
-		mState = EEnemyState::Idle;
-		//ê²½ê³¼ ì‹œê°„ ì´ˆê¸°í™”
-		currentTime = 0;
-	}
-}
-
-//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//Á×À½
 void UEnemyFSM::DieState()
 {
-	//ê³„ì† ì•„ë˜ë¡œ ë‚´ë ¤ê°€ê³  ì‹¶ë‹¤.
-	//ë“±ì†ìš´ë™ ê³µì‹ P = P0 + vt
+	//°è¼Ó ¾Æ·¡·Î ³»·Á°¡°í ½Í´Ù..
+	//µî¼Ó¿îµ¿ °ø½Ä P=P0+vt
 	FVector P0 = me->GetActorLocation();
-	FVector vt = FVector::DownVector * dieSpeed * GetWorld()->DeltaTimeSeconds;
-	FVector P = P0 + vt;
-	me->SetActorLocation(P);
+	FVector vt = FVector::DownVector * dieSpeed * GetWorld()->DeltaRealTimeSeconds;
+	FVector p = P0 + vt;
+	me->SetActorLocation(p);
 
-	//1. ë§Œì•½ 2ë¯¸í„° ì´ìƒ ë‚´ë ¤ì™”ë‹¤ë©´
-	if (P.Z < -200.0f)
+	if (p.Z < -200.0f)
 	{
-		//2. ì œê±°ì‹œí‚¨ë‹¤.
 		me->Destroy();
 	}
 }

@@ -12,53 +12,55 @@ ABullet::ABullet()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//1. ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½
+	//1. Ãæµ¹Ã¼ µî·Ï
 	collisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("CollComp"));
-	//2. ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//2. Ãæµ¹ÇÁ·ÎÆÄÀÏ ¼³Á¤
 	collisionComp->SetCollisionProfileName(TEXT("BlockAll"));
-	//3. ï¿½æµ¹Ã¼ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//3. Ãæµ¹Ã¼ Å©±â ¼³Á¤
 	collisionComp->SetSphereRadius(13);
-	//4. ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
+	//4. ·çÆ®·Î µî·Ï
 	RootComponent = collisionComp;
-	//5. ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
+	//5. ¿Ü°ü ÄÄÆ÷³ÍÆ® µî·Ï
 	bodyComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BodyMeshComp"));
-	//6. ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	//6. ºÎ¸ð ÄÄÆ÷³ÍÆ® ÁöÁ¤
 	bodyComp->SetupAttachment(collisionComp);
-	//7. ï¿½æµ¹ ï¿½ï¿½È°ï¿½ï¿½È­
+	//7. Ãæµ¹ ºñÈ°¼ºÈ­
 	bodyComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	//8. ï¿½Ü°ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	//8. ¿Ü°£ Å©±â ¼³Á¤
 	bodyComp->SetRelativeScale3D(FVector(0.25f));
-	//ï¿½ß»ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	//¹ß»çÃ¼ ÄÄÆ÷³ÍÆ®
 	movementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComp"));
-	//movemonet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Å½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	//movemonet ÄÄÆ÷³ÍÆ®°¡ °»½Å½ÃÅ³ ÄÄÆ÷³ÍÆ® ÁöÁ¤
 	movementComp->SetUpdatedComponent(collisionComp);
-	//ï¿½Ê±ï¿½Óµï¿½
-	movementComp->InitialSpeed = 5000;
-	//ï¿½Ö´ï¿½Óµï¿½
-	movementComp->MaxSpeed = 5000;
-	//ï¿½Ýµï¿½ ï¿½ï¿½ï¿½ï¿½
+	//¼Óµµ¸¦ ÇÑ¹ø¿¡ Ã³¸®ÇÏ±âÀ§ÇÑ ±â´ÉÀ» ÀÛ¼ºÇØÁÙ °ÍÀÌ´Ù. 
+	
+ 
+	//ÃÊ±â¼Óµµ
+	//movementComp->InitialSpeed = 5000;
+	//ÃÖ´ë¼Óµµ
+	//movementComp->MaxSpeed = 5000;
+	//¹Ýµ¿ ¿©ºÎ
 	movementComp->bShouldBounce = true;
-	//ï¿½Ýµï¿½ ï¿½ï¿½
+	//¹Ýµ¿ °ª
 	movementComp->Bounciness = 0.3f;
 
-	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ö±ï¿½
+	//ÀÎ½ºÅÏ½º »èÁ¦ 1
+	//»ý¸í ½Ã°£ ÁÖ±â
 	//InitialLifeSpan = 2.0f;
 }
-//void ABullet::Die()
-//{
-//	Destroy();
-//}
+
 // Called when the game starts or when spawned
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	//DieÇÔ¼ö¸¦ »ý¼ºÇÏ¿© 2ÃÊµÚ¿¡ »èÁ¦µÇ°Ô²û ÇÏ´Â ÇÔ¼ö¸¦ Á¦ÀÛÇÒ ¼öµµ ÀÖ´Ù.
 	FTimerHandle deathTimer;
+	//ÀÎ½ºÅÏ½º »èÁ¦ 2
 	//GetWorld()->GetTimerManager().SetTimer(deathTimer, this, &ABullet::Die, 2.0f, false);
-	GetWorld()->GetTimerManager().SetTimer(deathTimer, FTimerDelegate::CreateLambda([this]()->
-		void 
-		{ 
-			Destroy(); 
+	//ÀÎ½ºÅÏ½º »èÁ¦ 3.
+	GetWorld()->GetTimerManager().SetTimer(deathTimer, FTimerDelegate::CreateLambda([this]()->void
+		{
+			Destroy();
 		}), 2.0f, false);
 }
 
@@ -69,3 +71,17 @@ void ABullet::Tick(float DeltaTime)
 
 }
 
+void ABullet::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	if (PropertyChangedEvent.GetPropertyName() == TEXT("speed"))
+	{
+		movementComp->InitialSpeed = speed;
+		movementComp->MaxSpeed = speed;
+	}
+}
+
+//ÀÎ½ºÅÏ½º »èÁ¦ 2(hÆÄÀÏ¿¡ ÇÔ¼ö ¼±¾ð ÇØÁà¾ßÇÔ)
+//void ABullet::Die()
+//{
+//	Destroy();
+//}

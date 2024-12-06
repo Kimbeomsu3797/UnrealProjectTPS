@@ -10,19 +10,28 @@ AEnemy::AEnemy()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//1. ½ºÄÌ·¹Å»¸Ş½Ã µ¥ÀÌÅÍ ·Îµå
-	ConstructorHelpers::FObjectFinder<USkeletalMesh> tempMesh(TEXT("SkeletalMesh'/Game/Characters/Mannequin_UE4/Meshes/SK_Mannequin.SK_Mannequin'"));
-	//1-1. µ¥ÀÌÅÍ ·Îµå¿¡ ¼³°øÇß´Ù¸é
-	if(tempMesh.Succeeded())
+	//1.ï¿½ï¿½ï¿½Ì·ï¿½Å»ï¿½Ş½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> tempMesh(TEXT("SkeletalMesh'/Game/Enemy/Model/vampire_a_lusth.vampire_a_lusth'"));
+	//1-1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
+	if (tempMesh.Succeeded())
 	{
-		//1-2µ¥ÀÌÅÍ ÇÒ´ç
+		//1-2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
 		GetMesh()->SetSkeletalMesh(tempMesh.Object);
-		//1-3.¸Ş½Ã À§Ä¡ ¹× È¸Àü ¼³Á¤
+		//1-3. ï¿½Ş½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -88), FRotator(0, -90, 0));
+
+		//1-4. ë©”ì‹œ í¬ê¸° ìˆ˜ì •
+		GetMesh()->SetRelativeScale3D(FVector(0.84f));
 	}
 
-	//EnemyFSM ÄÄÆÛ³ÍÆ® Ãß°¡
 	fsm = CreateDefaultSubobject<UEnemyFSM>(TEXT("FSM"));
+
+	//ì• ë‹ˆë©”ì´ì…˜ ë¸”ë£¨í”„ë¦°íŠ¸ í• ë‹¹í•˜ê¸°
+	ConstructorHelpers::FClassFinder<UAnimInstance> tempClass(TEXT("AnimBlueprint'/Game/Blueprints/ABP_Enemy.ABP_Enemy_C'"));
+	if(tempClass.Succeeded())
+	{
+		GetMesh()->SetAnimInstanceClass((tempClass.Class));
+	}
 }
 
 // Called when the game starts or when spawned

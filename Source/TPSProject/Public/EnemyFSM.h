@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "EnemyFSM.generated.h"
 
-//О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
+//╩Г©Кгр ╩Себ а╓юг
 UENUM(BlueprintType)
 enum class EEnemyState : uint8
 {
@@ -25,6 +25,57 @@ class TPSPROJECT_API UEnemyFSM : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UEnemyFSM();
+	
+	//╠Б╨╩╪с╪╨ю╦╥н ╩Себ╦╕ idle╥н ╪Ёа╓гь╣п╢ы.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = FSM)
+		EEnemyState mState = EEnemyState::Idle;
+	//╢К╠Б╩Себ
+	void IdleState();
+	//юл╣©╩Себ
+	void MoveState();
+	//╟Ь╟щ╩Себ
+	void AttackState();
+	//гг╟щ╩Себ
+	void DamageState();
+	//авю╫╩Себ
+	void DieState();
+
+	//╢К╠Б ╩Себ
+	UPROPERTY(EditDefaultsOnly, Category = FSM)
+	//╢К╠Б ╫ц╟ё
+	float idleDelayTime = 2;
+	//╟Ф╟З ╫ц╟ё
+	float currentTime = 0;
+
+	//е╦╠Й
+	UPROPERTY(VisibleAnywhere, Category = FSM)
+		class ATPSPlayer* target;
+
+	//╪рю╞ ╬вем
+	UPROPERTY()
+		class AEnemy* me;
+
+	//╟Ь╟щ ╟║╢и ╧Эю╖
+	UPROPERTY(EditAnywhere, Category = FSM)
+		float attackRange = 150.0f;
+
+	//╟Ь╟щ ╢К╠Б ╫ц╟ё
+	UPROPERTY(EditAnywhere, Category = FSM)
+		float attackDelayTime = 2.0f;
+
+	//ц╪╥б
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = FSM)
+		int32 hp = 3;
+
+	//гг╟щ ╢К╠Б ╫ц╟ё ╪╠╬П
+	UPROPERTY(EditAnywhere, Category = FSM)
+		float damageDelayTime = 2.0f;
+
+	//╬ф╥║╥н ╩Г╤СаЖ╢б ╪с╣╣╦╕ ╪Ёа╓
+	UPROPERTY(EditAnywhere, Category = FSM)
+		float dieSpeed = 50.0f;
+	//гг╟щ ╬к╦╡ юл╨╔ф╝ гт╪Ж ╪╠╬П
+	void OnDamageProcess();
 
 protected:
 	// Called when the game starts
@@ -34,55 +85,5 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-public:
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = FSM)
-		EEnemyState mState = EEnemyState::Idle;
-
-	//О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	void IdleState();
-	//О©╫л╣О©╫ О©╫О©╫О©╫О©╫
-	void MoveState();
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	void AttackState();
-	//О©╫г╟О©╫ О©╫О©╫О©╫О©╫
-	void DamagedState();
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	void DieState();
-
-	//О©╫О©╫О©╫ О©╫ц╟О©╫
-	UPROPERTY(EditDefaultsOnly, Category = FSM)
-		float idleDelayTime = 2;
-	//О©╫О©╫О©╫ О©╫ц╟О©╫
-	float currentTime = 0;
-
-	//е╦О©╫О©╫
-	UPROPERTY(VisibleAnywhere, Category = FSM)
-		class ATPSPlayer* target;
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	UPROPERTY()
-		class AEnemy* me;
-
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫
-	UPROPERTY(EditAnywhere, Category = FSM)
-		float attackRange = 150.0f;
-
-	//О©╫О©╫О©╫О©╫ О©╫О©╫О©╫ О©╫ц╟О©╫
-	UPROPERTY(EditAnywhere, Category = FSM)
-		float attackDelayTime = 2.0f;
-
-	//М■╪Й╡╘ Л∙▄К╕╪ Л²╢К╡╓М┼╦ М∙╗Л┬≤
-	void OnDamageProcess();
-
-	//Л╡╢К═╔
-	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = FSM)
-	int32 hp =3;
-
-	//М■╪Й╡╘ К▄─Й╦╟ Л▀°Й╟└
-	UPROPERTY(EditAnywhere, Category = FSM)
-	float damageDelayTime = 2.0f;
-
-	//Л∙└К·≤К║° Л┌╛К²╪Л╖─К┼■ Л├█К▐└
-	UPROPERTY(EditAnywhere, Category = FSM)
-	float dieSpeed = 50.0f;
+		
 };

@@ -15,6 +15,7 @@ public:
 	// Sets default values for this character's properties
 	AEnemy();
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -27,7 +28,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	//적 AI관리 컴퍼넌트 클래스
+	//적 AI 관리 컴포넌트 클래스 변수 선언
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = FSMComponent)
 		class UEnemyFSM* fsm;
 };
