@@ -15,107 +15,99 @@ public:
 	// Sets default values for this character's properties
 	ATPSPlayer();
 
-	//ÀÎÇ² ¸ÅÇÎ Å¬·¡½º
+	//ï¿½ï¿½Ç² ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputMappingContext* imc_TPS;
 
-	//////////////////////////////////////ÀÌµ¿ °ü·Ã ¼±¾ð ºÎ//////////////////////////////////////
+	//////////////////////////////////////ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½//////////////////////////////////////
 	
-	//È¸Àü Å¬·¡½º
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
-		class UInputAction* ia_LookUp;
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
-		class UInputAction* ia_Turn;
-	//ÁÂ¿ì È¸Àü ÀÔ·Â Ã³¸®
-	void Turn(const struct FInputActionValue& inputValue);
-	//»óÇÏ È¸Àü ÀÔ·Â Ã³¸®
-	void LookUp(const struct FInputActionValue& inputValue);
+	
 
-	//ÀÌµ¿ ÀÔ·Â Ã³¸®
+	//ï¿½Ìµï¿½ ï¿½Ô·ï¿½ Ã³ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_Move;
-	//ÀÌµ¿ ¼Óµµ Ã³¸®
+	//ï¿½Ìµï¿½ ï¿½Óµï¿½ Ã³ï¿½ï¿½
 	UPROPERTY(EditAnywhere, Category = PlayerSetting)
 		float walkSpeed = 200;
 	UPROPERTY(EditAnywhere, Category = PlayerSetting)
 		float runSpeed = 600;
 
-	//´Þ¸®±â ÀÔ·Â
+	//ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_Run;
 
-	//´Þ¸®±â ÀÌº¥Æ® Ã³¸® ÇÔ¼ö
+	//ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½
 	void InputRun();
 
-	//ÀÌµ¿ ¹æÇâ
+	//ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 	FVector direction;
-	//ÀÌµ¿ Á¶°Ç ÇÔ¼ö
+	//ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	void Move(const struct FInputActionValue& inputValue);
-	//½ÇÁ¦ ÀÌµ¿ ÇÔ¼ö¸¦ ÀÛ¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
 	void PlayerMove();
 
-	//Á¡ÇÁ Å¬·¡½º
+	//ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_Jump;
-	//Á¡ÇÁ ÇÔ¼ö ¾ð¸®¾ó¿¡¼­ JumpÇÔ¼ö¸¦ Áö¿øÇÏ±â¿¡ ÇÔ¼ö¸íÀ» InputJump·Î ÀÛ¼º
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ð¸®¾ó¿¡¼ï¿½ Jumpï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±â¿¡ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ InputJumpï¿½ï¿½ ï¿½Û¼ï¿½
 	void InputJump(const struct FInputActionValue& inputValue);
 
-	//////////////////////////////////////ÀÌµ¿ °ü·Ã ¼±¾ð ºÎ//////////////////////////////////////
+	//////////////////////////////////////ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½//////////////////////////////////////
 
-	//////////////////////////////////////¹«±â °ü·Ã ¼±¾ð ºÎ//////////////////////////////////////
+	//////////////////////////////////////ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½//////////////////////////////////////
 	
-	//¹ß»ç Å¬·¡½º
+	//ï¿½ß»ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_Fire;
-	//¹ß»ç ÇÔ¼ö
+	//ï¿½ß»ï¿½ ï¿½Ô¼ï¿½
 	void InputFire(const struct FInputActionValue& inputValue);
 
-	//°¢ ÃÑ ±³Ã¼ Å¬·¡½º
+	//ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ã¼ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_GrenadeGun;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_SniperGun;
 
-	//À¯ÅºÃÑÀ» »ç¿ëÇÏ°í ÀÖ´ÂÁö¿¡ ´ëÇÑ ¿©ºÎ
+	//ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool bUsingGrenadeGun = true;
-	//½º³ªÀÌÆÛ¸¦ »ç¿ëÇÏ°í ÀÖ´ÂÁö¿¡ ´ëÇÑ ¿©ºÎ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	bool bSniperAim = false;
 
-	//½º³ªÀÌÆÛ Á¶ÁØ Ã³¸® Å¬·¡½º
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 		class UInputAction* ia_Sniper;
 	void SniperAim(const struct FInputActionValue& inputValue);
 
-	//½º³ªÀÌÆÛ Á¶ÁØ UI À§Á¬ °øÀå
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
 		TSubclassOf<class UUserWidget> sniperUIFactory;
-	//½º³ªÀÌÆÛ UI À§Á¬ ÀÎ½ºÅÏ½º
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½
 	UPROPERTY()
 		class UUserWidget* _sniperUI;
-	//ÀÏ¹Ý Á¶ÁØ Å©·Î½ºÇì¾îUI À§Á¬ °øÀå
+	//ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = BulletEffect)
 		TSubclassOf<class UUserWidget> crosshairUIFactory;
-	//Å©·Î½ºÇì¾î UI À§Á¬ ÀÎ½ºÅÏ½º
+	//Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½
 	UPROPERTY()
 	class UUserWidget* _crosshairUI;
 
-	//Ä«¸Þ¶ó ¼ÎÀÌÅ© ºí·çÇÁ¸°Æ®¸¦ ÀúÀåÇÒ º¯¼ö
+	//Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = CameraMotion)
 		TSubclassOf<class UCameraShakeBase> cameraShake;
-	//ÃÑ¾Ë ¹ß»ç »ç¿îµå
+	//ï¿½Ñ¾ï¿½ ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditDefaultsOnly, Category = Sound)
 		class USoundBase* bulletSound;
 
-	//°¢ ¹«±â ±³Ã¼ ÇÔ¼ö
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ô¼ï¿½
 	void ChangeToGrenadeGun(const struct FInputActionValue& inputValue);
 
 	void ChangeToSniperGun(const struct FInputActionValue& inputValue);
 
-	//ÃÑ¾Ë Àû¿ë °øÀå (ÇÁ¸®ÆÕ»ý¼º ´À³¦)
+	//ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	UPROPERTY(EditDefaultsOnly, Category = BulletFactory)
 		TSubclassOf<class ABullet> bulletFactory;
 
-	//ÀÌÆåÆ® È¿°ú Àû¿ë °øÀå
+	//ï¿½ï¿½ï¿½ï¿½Æ® È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(EditAnywhere, Category = BulletEffect)
 		class UParticleSystem* bulletEffectFactory;
 
@@ -131,16 +123,19 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	//½ºÇÁ¸µ¾Ï Å¬·¡½º
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 		class USpringArmComponent* springArmComp;
-	//Ä«¸Þ¶ó Å¬·¡½º
+	//Ä«ï¿½Þ¶ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		class UCameraComponent* tpsCamComp;
-	//ÃÑ ½ºÄÌ·¹Å»¸Þ½Ã Å¬·¡½º
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½Ì·ï¿½Å»ï¿½Þ½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
 		class USkeletalMeshComponent* gunMeshComp;
-	//½º³ªÀÌÇÁ ½ºÅ×Æ½ ¸Þ½Ã Å¬·¡½º
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ½ ï¿½Þ½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
 		class UStaticMeshComponent* sniperGunComp;
+public:
+	UPROPERTY(VisibleAnywhere, Category= Component)
+	class UPlayerBaseComponent* playerMove;
 };

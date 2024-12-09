@@ -9,6 +9,9 @@
 #include <Components/CapsuleComponent.h>
 #include "EnemyAnim.h"
 #include "Misc/LowLevelTestAdapter.h"
+#include "AIController.h"
+#include "NavigationSystem.h"
+#include "Navigation/PathFollowingComponent.h"
 
 // Sets default values for this component's properties
 UEnemyFSM::UEnemyFSM()
@@ -33,8 +36,19 @@ void UEnemyFSM::BeginPlay()
 
 	//UEnemyAnim* 할당
 	anim = Cast<UEnemyAnim>(me->GetMesh()->GetAnimInstance());
-}
 
+	//AAIController할당하기
+	ai = Cast<AAIController>(me->GetController());
+}
+//랜덤 위치 가져오기
+bool UEnemyFSM::GetRandomPositionInNavMesh(FVector centerLocation, float radius, FVector& dest)
+{
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+	FNavLocation loc;
+	bool result = ns->GetRandomReachablePointInRadius(centerLocation, radius, loc);
+	dest = loc.Location;
+	return result;
+}
 // Called every frame
 void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -78,7 +92,8 @@ void UEnemyFSM::IdleState()
 		anim->amimState = mState;
 		//��� �ð� �ʱ�ȭ
 		currentTime = 0;
-		
+		//최초 랜덤한 위치 정해주기
+		GetRandomPositionInNavMesh(me->GetActorLocation(),500,randomPos);
 	}
 }
 
@@ -89,11 +104,50 @@ void UEnemyFSM::MoveState()
 	FVector destination = target->GetActorLocation();
 	//2. ������ �ʿ�
 	FVector dir = destination - me->GetActorLocation();
-	//3. ���� �������� �̵��ϰ� �ʹ�.
-	me->AddMovementInput(dir.GetSafeNormal());
+
+	//3. 방향으로 이동하고싶다.
+	//me->AddMovementInput(dir.GetSafeNormal());
+	//ai->MoveToLocation(destination);
 	//Ÿ��� ��������� ���� ���·� ����
+	//NavigationSystem 객체 얻어오기
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+
+	//목적지 길 찾기 경로 데이터 검색
+	FPathFindingQuery query;
+	FAIMoveRequest req;
+	//목적지에서 인지할 수 있는 범위
+	req.SetAcceptanceRadius(3);
+	req.SetGoalLocation(destination);
+	//길 찾기를 위한 쿼리 생성
+	ai->BuildPathfindingQuery(req, query);
+	if (ns != nullptr)
+	{
+		//길 찾기 결과 가져오기
+		FPathFindingResult r = ns->FindPathSync(query);
+		//목적지까지의 길 찾기 성공 여부 확인
+		if (r.Result == ENavigationQueryResult::Success)
+		{
+			//타깃쪽으로 이동
+			ai->MoveToLocation(destination);
+			
+		}
+		else
+		{
+			//랜덤 위치로 이동
+			auto result = ai->MoveToLocation(randomPos);
+			//목적지에 도착하면
+			if (result == EPathFollowingRequestResult::AlreadyAtGoal)
+			{
+				//새로운 랜덤 위치 가져오기
+				GetRandomPositionInNavMesh(me->GetActorLocation(),500,randomPos);
+			}
+		}
+	}
+	
 	if (dir.Size() < attackRange)
 	{
+		//길 찾기 기능 정지
+		ai->StopMovement();
 		mState = EEnemyState::Attack;
 		//애니메이션 상태 동기화
 		anim->amimState = mState;
@@ -127,6 +181,9 @@ void UEnemyFSM::AttackState()
 		//3. ���¸� �̵����� ��ȯ
 		mState = EEnemyState::Move;
 		anim->amimState = mState;
+
+		//최초 랜덤한 위치 정해주기
+		GetRandomPositionInNavMesh(me->GetActorLocation(),500,randomPos);
 	}
 
 }
@@ -177,6 +234,8 @@ void UEnemyFSM::OnDamageProcess()
 	}
 	//애니메이션 상태 동기화
 	anim->amimState = mState;
+	//길 찾기 기능 정지
+	ai->StopMovement();
 }
 
 //����
@@ -201,3 +260,4 @@ void UEnemyFSM::DieState()
 		me->Destroy();
 	}
 }
+

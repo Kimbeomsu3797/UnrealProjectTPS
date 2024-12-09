@@ -9,16 +9,16 @@
   <component name="ChangeListManager">
     <list default="true" id="90c4ca26-3d83-4014-9b80-ae9e82ec4c7a" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TPSProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TPSProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/ABP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/ABP_Enemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Enemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Animations/Mma_Kick.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Animations/Mma_Kick.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/Model/vampire_a_lusth_Skeleton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/Model/vampire_a_lusth_Skeleton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_TPSPlayer.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_TPSPlayer.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Maps/TPSMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/TPSMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyAnim.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyAnim.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/Enemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyFSM.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyFSM.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyAnim.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyAnim.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/TPSPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/TPSPlayer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyFSM.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyFSM.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/TPSPlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/TPSPlayer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/TPSProject.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/TPSProject.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../Program Files/Epic Games/UE_5.2/Engine/Source/Runtime/Engine/Classes/GameFramework/PlayerController.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -82,7 +85,9 @@
       <option name="presentableId" value="Default" />
       <updated>1733447402949</updated>
       <workItem from="1733447404674" duration="9271000" />
-      <workItem from="1733466784948" duration="3336000" />
+      <workItem from="1733466784948" duration="3886000" />
+      <workItem from="1733707637608" duration="1078000" />
+      <workItem from="1733709691215" duration="13329000" />
     </task>
     <servers />
   </component>
