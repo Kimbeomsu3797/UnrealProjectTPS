@@ -132,22 +132,7 @@ void ATPSPlayer::Tick(float DeltaTime)
 	PlayerMove();
 }
 
-//���� �̵� �Լ�
-void ATPSPlayer::PlayerMove()
-{
-	//�÷��̾� �̵�ó��
-	//��� �
-	//P(��� ��ġ) = P0(���� ��ġ) + V(�ӵ�) X T(�ð�)
-	//direction = FTransform(GetControlRotation()).TransformVector(direction);
-	//FVector P0 = GetActorLocation();
-	//FVector vt = direction * walkSpeed * DeltaTime;
-	//FVector P = P0 + vt;
-	//SetActorLocation(P);
-	//�ش� ������ ���� ���ִ� �Լ��� ���������
-	direction = FTransform(GetControlRotation()).TransformVector(direction);
-	AddMovementInput(direction);
-	direction = FVector::ZeroVector;
-}
+
 
 //��ǲ ���ε� �κ�
 // Called to bind functionality to input
@@ -161,7 +146,8 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	{
 		//컴퍼넌트에서 입력 바인딩 처리하도록 호출
 		playerMove->SetupInputBinding(PlayerInput);
-		PlayerInput->BindAction(ia_Move, ETriggerEvent::Triggered, this, &ATPSPlayer::Move);
+
+		
 
 		//���� �̺�Ʈ ó�� �Լ� ���ε�
 		PlayerInput->BindAction(ia_Jump, ETriggerEvent::Started, this, &ATPSPlayer::InputJump);
@@ -185,15 +171,7 @@ void ATPSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 
 
 
-//�̵� ó�� �Լ�
-void ATPSPlayer::Move(const FInputActionValue& inputValue)
-{
-	FVector2D value = inputValue.Get<FVector2D>();
-	//���� �Է� �̺�Ʈ ó��
-	direction.X = value.X;
-	//�¿� �Է� �̺�Ʈ ó��
-	direction.Y = value.Y;
-}
+
 
 //���� �Լ�
 void ATPSPlayer::InputJump(const FInputActionValue& inputValue)

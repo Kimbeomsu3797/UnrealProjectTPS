@@ -26,4 +26,19 @@ public:
 	void LookUp(const struct FInputActionValue& inputValue);
 
 	virtual void SetupInputBinding(class UEnhancedInputComponent* PlayerInput) override;
+
+	//�̵� �Է� ó��
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	class UInputAction* ia_Move;
+	//�̵� ����
+	FVector direction;
+	//�̵� ���� �Լ�
+	void Move(const struct FInputActionValue& inputValue);
+	//�̵� �ӵ� ó��
+	UPROPERTY(EditAnywhere, Category = PlayerSetting)
+	float walkSpeed = 200;
+	UPROPERTY(EditAnywhere, Category = PlayerSetting)
+	float runSpeed = 600;
+	//���� �̵� �Լ��� �ۼ�
+	void PlayerMove();
 };

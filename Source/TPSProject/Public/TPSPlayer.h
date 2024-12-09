@@ -23,14 +23,8 @@ public:
 	
 	
 
-	//�̵� �Է� ó��
-	UPROPERTY(EditDefaultsOnly, Category = "Input")
-		class UInputAction* ia_Move;
-	//�̵� �ӵ� ó��
-	UPROPERTY(EditAnywhere, Category = PlayerSetting)
-		float walkSpeed = 200;
-	UPROPERTY(EditAnywhere, Category = PlayerSetting)
-		float runSpeed = 600;
+
+
 
 	//�޸��� �Է�
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
@@ -38,13 +32,9 @@ public:
 
 	//�޸��� �̺�Ʈ ó�� �Լ�
 	void InputRun();
-
-	//�̵� ����
-	FVector direction;
-	//�̵� ���� �Լ�
-	void Move(const struct FInputActionValue& inputValue);
-	//���� �̵� �Լ��� �ۼ�
-	void PlayerMove();
+	
+	
+	
 
 	//���� Ŭ����
 	UPROPERTY(EditDefaultsOnly, Category = "Input")

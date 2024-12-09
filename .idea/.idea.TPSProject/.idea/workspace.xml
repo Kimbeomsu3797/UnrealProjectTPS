@@ -9,16 +9,10 @@
   <component name="ChangeListManager">
     <list default="true" id="90c4ca26-3d83-4014-9b80-ae9e82ec4c7a" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TPSProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TPSProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_Enemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_Enemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/BP_TPSPlayer.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/BP_TPSPlayer.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Maps/TPSMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Maps/TPSMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/Enemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/Enemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyFSM.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/EnemyFSM.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/PlayerMove.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/PlayerMove.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TPSProject/Private/TPSPlayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Private/TPSPlayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyFSM.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/EnemyFSM.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/PlayerMove.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/PlayerMove.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TPSProject/Public/TPSPlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/Public/TPSPlayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TPSProject/TPSProject.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TPSProject/TPSProject.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +82,7 @@
       <workItem from="1733466784948" duration="3886000" />
       <workItem from="1733707637608" duration="1078000" />
       <workItem from="1733709691215" duration="13329000" />
+      <workItem from="1733729580833" duration="564000" />
     </task>
     <servers />
   </component>
